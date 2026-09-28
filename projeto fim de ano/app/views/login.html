@@ -14,11 +14,11 @@
             <p>Acesse sua conta para gerenciar seus baralhos</p>
         </div>
 
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             <div class="alert-container">
-            {% for message in messages %}
-              <div class="alert error">{{ message }}</div>
+            {% for category, message in messages %}
+              <div class="alert {{ category if category else 'error' }}">{{ message }}</div>
             {% endfor %}
             </div>
           {% endif %}
@@ -37,6 +37,10 @@
             
             <button type="submit" class="btn btn-primary">Entrar no Sistema</button>
         </form>
+
+        <div class="auth-footer">
+            <p>Ainda não tem conta? <a href="{{ url_for('auth.register') }}">Cadastre-se</a></p>
+        </div>
     </div>
 </body>
 </html>
