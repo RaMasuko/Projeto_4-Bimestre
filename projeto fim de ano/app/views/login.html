@@ -2,30 +2,41 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Pokémon Decks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <h2>Login do Treinador</h2>
-    
-    <!-- Exibição de mensagens de aviso / erro -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul style="color: red;">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+<body class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="pokeball-icon"></div>
+            <h2>Treinador Pokémon</h2>
+            <p>Acesse sua conta para gerenciar seus baralhos</p>
+        </div>
 
-    <form method="POST" action="{{ url_for('auth.login') }}">
-        <label>Usuário:</label><br>
-        <input type="text" name="username" required><br><br>
-        
-        <label>Senha:</label><br>
-        <input type="password" name="password" required><br><br>
-        
-        <button type="submit">Entrar</button>
-    </form>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert-container">
+            {% for message in messages %}
+              <div class="alert error">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" placeholder="Digite seu usuário" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Entrar no Sistema</button>
+        </form>
+    </div>
 </body>
 </html>
