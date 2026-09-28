@@ -2,12 +2,38 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Pokémon Decks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <h2>Bem-vindo, Treinador {{ username }}!</h2>
-    <p>Você acessou o painel principal do sistema.</p>
-    
-    <a href="{{ url_for('auth.logout') }}">Sair (Logout)</a>
+<body class="dashboard-page">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="pokeball-icon small"></div>
+            <span>Pokémon Deck Builder</span>
+        </div>
+        <div class="nav-user">
+            <span>Olá, <strong>{{ username }}</strong></span>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-logout">Sair</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="welcome-banner">
+            <h1>Bem-vindo, Treinador {{ username }}!</h1>
+            <p>Seu painel de gerenciamento de baralhos e avaliação de cartas está pronto.</p>
+        </header>
+
+        <section class="cards-grid">
+            <div class="dash-card">
+                <h3>Meus Baralhos</h3>
+                <p>Em breve você poderá criar e gerenciar seus baralhos nesta seção.</p>
+            </div>
+            <div class="dash-card">
+                <h3>Avaliação de Preços</h3>
+                <p>Consulte cotações e valores atualizados das cartas do mercado.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
