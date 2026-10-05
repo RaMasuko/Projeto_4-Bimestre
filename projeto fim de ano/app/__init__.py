@@ -10,10 +10,12 @@ def create_app():
     from app.middlewares.auth_middleware import check_auth
     from app.controllers.auth_controller import auth_bp
     from app.controllers.main_controller import main_bp
+    from app.controllers.deck_controller import deck_bp
 
     app.before_request(check_auth)
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
+    app.register_blueprint(deck_bp)
 
     return app

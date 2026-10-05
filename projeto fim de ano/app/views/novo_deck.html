@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Baralho - Pokémon Decks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="pokeball-icon"></div>
+            <h2>Novo Baralho</h2>
+            <p>Informe os dados do seu novo baralho</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="alert-container">
+            {% for category, message in messages %}
+              <div class="alert {{ category if category else 'error' }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('deck.create') }}" class="auth-form">
+            <div class="form-group">
+                <label for="name">Nome do Baralho</label>
+                <input type="text" id="name" name="name" placeholder="Ex: Charizard EX Overpower" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="carta_principal">Carta Principal (Opcional)</label>
+                <input type="text" id="carta_principal" name="carta_principal" placeholder="Ex: Charizard EX">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar Baralho</button>
+            <a href="{{ url_for('deck.index') }}" class="btn btn-logout" style="text-align: center; margin-top: 0.5rem;">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -303,3 +303,76 @@ body {
 .auth-footer a:hover {
     text-decoration: underline;
 }
+/* Links do Dashboard */
+.dash-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-title-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Header de Páginas de Listagem */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Estado Vazio */
+.empty-state {
+    background-color: var(--card-bg);
+    border: 1px dashed var(--card-border);
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
+
+.deck-item p {
+    margin-top: 0.5rem;
+}
+/* Cabeçalho do Card de Baralho */
+.deck-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+}
+
+.deck-card-header h3 {
+    margin: 0;
+    word-break: break-word;
+}
+
+/* Botão de Exclusão */
+.btn-danger {
+    background-color: #dc2626;
+    color: #ffffff;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+.btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+}

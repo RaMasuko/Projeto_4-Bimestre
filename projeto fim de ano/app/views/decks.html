@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Baralhos - Pokémon Decks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="pokeball-icon small"></div>
+            <a href="{{ url_for('main.dashboard') }}" class="nav-title-link">Pokémon Deck Builder</a>
+        </div>
+        <div class="nav-user">
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-logout">Voltar ao Painel</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-logout">Sair</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <div class="page-header">
+            <h2>Meus Baralhos</h2>
+            <a href="{{ url_for('deck.create') }}" class="btn btn-primary">+ Criar Novo Baralho</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="alert-container">
+            {% for category, message in messages %}
+              <div class="alert {{ category if category else 'error' }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% if decks %}
+            <div class="cards-grid">
+                {% for deck in decks %}
+                    <div class="dash-card deck-item">
+                        <div class="deck-card-header">
+                            <h3>{{ deck.name }}</h3>
+                            <form method="POST" action="{{ url_for('deck.delete', deck_id=deck.id) }}" onsubmit="return confirm('Tem certeza que deseja excluir o baralho {{ deck.name }}?');">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </div>
+                        <p><strong>Carta Principal:</strong> {{ deck.carta_principal if deck.carta_principal else 'Não informada' }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="pokeball-icon"></div>
+                <p>Nenhum baralho cadastrado</p>
+                <a href="{{ url_for('deck.create') }}" class="btn btn-primary" style="margin-top: 1rem;">Cadastrar o Primeiro Baralho</a>
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

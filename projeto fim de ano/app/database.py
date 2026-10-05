@@ -1,31 +1,40 @@
 import sqlite3
 import os
 
-# Caminho do arquivo do banco de dados na pasta do projeto
+# Caminho do banco SQLite na pasta do projeto
 DB_PATH = os.path.join(os.path.dirname(__file__), 'pokemon_deck.db')
 
-def get_db_connection():
-    """Conecta ao arquivo SQLite local sem precisar de drivers instalados."""
-    conn = sqlite3.connect(DB_PATH)
-    # Permite acessar colunas pelo nome (ex: row['username']) além de índice
-    conn.row_factory = sqlite3.Row
-    return conn
+class DatabaseManager:
+    def __init__(self, db_path=DB_PATH):
+        self.db_path = db_path
+        self.conn = None
+        self.cursor = None
 
-def init_db():
-    """Cria a tabela de usuários em SQL puro."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    def __enter__(self):
+        self.conn = sqlite3.connect(self.db_path)
+        # Permite acessar colunas pelo nome (ex: row['username'])
+        self.conn.row_factory = sqlite3.Row
+        self.cursor = self.conn.cursor()
+        return self
 
-    create_table_sql = """
-    CREATE TABLE IF NOT EXISTS usuarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL UNIQUE,
-        password_hash TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-    """
-    
-    cursor.execute(create_table_sql)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        try:
+            if exc_type is None:
+                self.conn.commit()
+            else:
+                self.conn.rollback()
+        finally:
+            if self.cursor:
+                self.cursor.close()
+            if self.conn:
+                self.conn.close()
+
+    def execute(self, query, params=()):
+        self.cursor.execute(query, params)
+        return self.cursor
+
+    def fetchone(self):
+        return self.cursor.fetchone()
+
+    def fetchall(self):
+        return self.cursor.fetchall()

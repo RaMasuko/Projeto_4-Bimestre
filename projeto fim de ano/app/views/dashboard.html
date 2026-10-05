@@ -25,10 +25,12 @@
         </header>
 
         <section class="cards-grid">
-            <div class="dash-card">
-                <h3>Meus Baralhos</h3>
-                <p>Em breve você poderá criar e gerenciar seus baralhos nesta seção.</p>
-            </div>
+            <a href="{{ url_for('deck.index') }}" class="dash-card-link">
+                <div class="dash-card">
+                    <h3>Meus Baralhos</h3>
+                    <p>Visualize, crie e gerencie seus baralhos cadastrados.</p>
+                </div>
+            </a>
             <div class="dash-card">
                 <h3>Avaliação de Preços</h3>
                 <p>Consulte cotações e valores atualizados das cartas do mercado.</p>
