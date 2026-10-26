@@ -10,12 +10,10 @@ def login():
 
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
-        password = request.form.get('password')
+        password = request.form.get('password', '')
 
-        # Modelo 1 aplicado: Busca o usuário usando o método da classe (Finder)
         user = UserModel.get_by_username(username)
 
-        # Valida a senha usando o método de comportamento da instância
         if user and user.check_password(password):
             session['username'] = user.username
             return redirect(url_for('main.dashboard'))
@@ -32,8 +30,8 @@ def register():
 
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
 
         if not username or not password or not confirm_password:
             flash("Preencha todos os campos obrigatórios.", "error")
@@ -44,7 +42,6 @@ def register():
         elif UserModel.get_by_username(username):
             flash("Este nome de usuário já está em uso.", "error")
         else:
-            # Modelo 2/3 aplicado: Cria e persiste o novo usuário no banco de dados
             UserModel.create(username, password)
             flash("Conta criada com sucesso! Faça o login para continuar.", "success")
             return redirect(url_for('auth.login'))

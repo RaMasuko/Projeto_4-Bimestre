@@ -40,11 +40,39 @@
                     <div class="dash-card deck-item">
                         <div class="deck-card-header">
                             <h3>{{ deck.name }}</h3>
-                            <form method="POST" action="{{ url_for('deck.delete', deck_id=deck.id) }}" onsubmit="return confirm('Tem certeza que deseja excluir o baralho {{ deck.name }}?');">
-                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                            </form>
+                            <div class="deck-actions">
+                                <a href="{{ url_for('deck.edit', deck_id=deck.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                                <form method="POST" action="{{ url_for('deck.delete', deck_id=deck.id) }}" onsubmit="return confirm('Tem certeza que deseja excluir o baralho {{ deck.name }}?');" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                </form>
+                            </div>
                         </div>
                         <p><strong>Carta Principal:</strong> {{ deck.carta_principal if deck.carta_principal else 'Não informada' }}</p>
+                        
+                        <div class="deck-list-box">
+                            <strong>Cartas do Baralho:</strong>
+                            {% set cartas = deck.get_cartas_detalhadas() %}
+                            {% if cartas %}
+                                <table class="cards-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Qtd</th>
+                                            <th>Carta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in cartas %}
+                                            <tr>
+                                                <td class="card-qty">{{ item.quantidade }}x</td>
+                                                <td class="card-name">{{ item.nome }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p class="text-muted">Nenhuma carta cadastrada no baralho.</p>
+                            {% endif %}
+                        </div>
                     </div>
                 {% endfor %}
             </div>

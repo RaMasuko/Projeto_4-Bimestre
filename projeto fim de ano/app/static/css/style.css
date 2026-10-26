@@ -376,3 +376,136 @@ body {
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
 }
+
+/* Card mais largo para formulários com Textarea */
+.form-card-wide {
+    max-width: 520px;
+}
+
+/* Estilização para Textarea */
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--pokemon-yellow);
+}
+
+/* Ações do Card de Baralho */
+.deck-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+/* Botão Secundário / Editar */
+.btn-secondary {
+    background-color: #3b82f6;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #2563eb;
+}
+
+/* Exibição da Lista de Cartas no Card */
+.deck-list-box {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--card-border);
+}
+
+.deck-list-content {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+    margin-top: 0.5rem;
+    color: #e2e8f0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.text-muted {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Tabela Estruturada de Cartas */
+.cards-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.cards-table th {
+    text-align: left;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0.25rem 0.5rem;
+}
+
+.cards-table td {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-qty {
+    font-weight: bold;
+    color: var(--pokemon-yellow);
+    width: 45px;
+}
+
+.card-name {
+    color: #e2e8f0;
+}
+
+/* Tabela Estruturada de Cartas */
+.cards-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.cards-table th {
+    text-align: left;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0.25rem 0.5rem;
+}
+
+.cards-table td {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-qty {
+    font-weight: bold;
+    color: var(--pokemon-yellow);
+    width: 45px;
+}
+
+.card-name {
+    color: #e2e8f0;
+}

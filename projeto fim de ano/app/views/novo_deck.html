@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="auth-page">
-    <div class="auth-card">
+    <div class="auth-card form-card-wide">
         <div class="auth-header">
             <div class="pokeball-icon"></div>
             <h2>Novo Baralho</h2>
-            <p>Informe os dados do seu novo baralho</p>
+            <p>Monte a lista de cartas do seu novo baralho</p>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,13 +26,18 @@
 
         <form method="POST" action="{{ url_for('deck.create') }}" class="auth-form">
             <div class="form-group">
-                <label for="name">Nome do Baralho</label>
+                <label for="name">Nome do Baralho *</label>
                 <input type="text" id="name" name="name" placeholder="Ex: Charizard EX Overpower" required autofocus>
             </div>
             
             <div class="form-group">
                 <label for="carta_principal">Carta Principal (Opcional)</label>
                 <input type="text" id="carta_principal" name="carta_principal" placeholder="Ex: Charizard EX">
+            </div>
+
+            <div class="form-group">
+                <label for="lista_baralho">Lista do Baralho (Cartas)</label>
+                <textarea id="lista_baralho" name="lista_baralho" rows="6" placeholder="Digite uma carta por linha, ex:&#10;4 Charizard EX&#10;2 Charmander&#10;4 Ultra Bola&#10;12 Energia de Fogo"></textarea>
             </div>
             
             <button type="submit" class="btn btn-primary">Salvar Baralho</button>
