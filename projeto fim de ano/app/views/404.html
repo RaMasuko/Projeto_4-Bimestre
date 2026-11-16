@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{% if erro_500 %}Erro 500{% else %}Página Não Encontrada - 404{% endif %}{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="auth-card" style="text-align: center;">
+    <div class="pokeball-icon"></div>
+    <h1 style="font-size: 3rem; margin-top: 1rem; color: var(--primary-red);">{% if erro_500 %}500{% else %}404{% endif %}</h1>
+    <h2 style="margin-bottom: 0.5rem;">{% if erro_500 %}Erro Interno no Servidor{% else %}Um Pokémon selvagem bloqueou o caminho!{% endif %}</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        {% if erro_500 %}Ocorreu uma falha inesperada ao processar sua solicitação.{% else %}A página que você tentou acessar não existe ou foi movida.{% endif %}
+    </p>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">Voltar para o Início</a>
+</div>
+{% endblock %}

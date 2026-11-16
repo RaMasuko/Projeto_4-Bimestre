@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Pokémon Decks</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dashboard-page">
-    <nav class="navbar">
-        <div class="nav-brand">
-            <div class="pokeball-icon small"></div>
-            <span>Pokémon Deck Builder</span>
-        </div>
-        <div class="nav-user">
-            <span>Olá, <strong>{{ username }}</strong></span>
-            <a href="{{ url_for('auth.logout') }}" class="btn btn-logout">Sair</a>
-        </div>
-    </nav>
+{% extends 'base.html' %}
+{% block title %}Dashboard - Pokémon Decks{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
 
-    <main class="dashboard-container">
-        <header class="welcome-banner">
-            <h1>Bem-vindo, Treinador {{ username }}!</h1>
-            <p>Seu painel de gerenciamento de baralhos e avaliação de cartas está pronto.</p>
-        </header>
+{% block content %}
+<main class="dashboard-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+        {% for category, message in messages %}
+          <div class="alert {{ category if category else 'error' }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-        <section class="cards-grid">
-            <a href="{{ url_for('deck.index') }}" class="dash-card-link">
-                <div class="dash-card">
-                    <h3>Meus Baralhos</h3>
-                    <p>Visualize, crie e gerencie seus baralhos cadastrados.</p>
-                </div>
-            </a>
+    <header class="welcome-banner">
+        <h1>Bem-vindo, Treinador {{ username }}!</h1>
+        <p>Seu painel de gerenciamento de baralhos e avaliação de cartas está pronto.</p>
+    </header>
+
+    <section class="cards-grid">
+        <a href="{{ url_for('deck.index') }}" class="dash-card-link">
             <div class="dash-card">
-                <h3>Avaliação de Preços</h3>
-                <p>Consulte cotações e valores atualizados das cartas do mercado.</p>
+                <h3>Meus Baralhos ({{ total_decks }})</h3>
+                <p>Visualize, crie, edite e gerencie seus baralhos cadastrados.</p>
             </div>
-        </section>
-    </main>
-</body>
-</html>
+        </a>
+        <a href="{{ url_for('carta.index') }}" class="dash-card-link">
+            <div class="dash-card">
+                <h3>Avaliação de Preços ({{ total_cartas }})</h3>
+                <p>Cadastre e consulte cotações e valores estimados das suas cartas.</p>
+            </div>
+        </a>
+    </section>
+</main>
+{% endblock %}

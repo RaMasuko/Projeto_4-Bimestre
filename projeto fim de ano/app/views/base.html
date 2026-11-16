@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pokémon Deck Builder{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% if request.cookies.get('tema') == 'claro' %}theme-light{% endif %} {% block body_class %}{% endblock %}">
+    {% block navbar %}
+    {% if g.usuario %}
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="pokeball-icon small"></div>
+            <a href="{{ url_for('main.dashboard') }}" class="nav-title-link">Pokémon Deck Builder</a>
+        </div>
+        <div class="nav-user">
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-logout">Painel</a>
+            <a href="{{ url_for('deck.index') }}" class="btn btn-logout">Baralhos</a>
+            <a href="{{ url_for('carta.index') }}" class="btn btn-logout">Avaliação de Preços</a>
+            <form method="POST" action="{{ url_for('main.alternar_tema') }}" style="display: inline;">
+                <button type="submit" class="btn btn-logout" title="Alternar Tema (Cookie)">
+                    {% if request.cookies.get('tema') == 'claro' %}🌙 Escuro{% else %}☀️ Claro{% endif %}
+                </button>
+            </form>
+            <span>Olá, <strong>{{ g.usuario.username }}</strong></span>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-logout">Sair</a>
+        </div>
+    </nav>
+    {% endif %}
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

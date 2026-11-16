@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Avaliação de Preços - Pokémon Decks{% endblock %}
+
+{% block content %}
+<main class="dashboard-container">
+    <div class="page-header">
+        <div>
+            <h2>Avaliação de Preços de Cartas</h2>
+            <p class="text-muted">Valor total estimado da coleção: <strong>R$ {{ "%.2f"|format(valor_total) }}</strong></p>
+        </div>
+        <a href="{{ url_for('carta.create') }}" class="btn btn-primary">+ Nova Cotação</a>
+    </div>
+
+    <form method="GET" action="{{ url_for('carta.index') }}" class="search-bar">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar carta por nome ou coleção...">
+        <button type="submit" class="btn btn-secondary">Filtrar</button>
+        {% if busca %}
+            <a href="{{ url_for('carta.index') }}" class="btn btn-logout">Limpar</a>
+        {% endif %}
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+        {% for category, message in messages %}
+          <div class="alert {{ category if category else 'error' }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if cartas %}
+        <div class="cards-grid">
+            {% for carta in cartas %}
+                <div class="dash-card deck-item">
+                    <div class="deck-card-header">
+                        <h3>{{ carta.nome_carta }}</h3>
+                        <div class="deck-actions">
+                            <a href="{{ url_for('carta.edit', carta_id=carta.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form method="POST" action="{{ url_for('carta.delete', carta_id=carta.id) }}" onsubmit="return confirm('Excluir a cotação de {{ carta.nome_carta }}?');" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                    <p><strong>Coleção:</strong> {{ carta.colecao }}</p>
+                    <p><strong>Raridade:</strong> {{ carta.raridade }}</p>
+                    <p class="price-tag"><strong>Preço Estimado:</strong> R$ {{ "%.2f"|format(carta.preco_estimado) }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div class="pokeball-icon"></div>
+            <p>{% if busca %}Nenhuma carta encontrada para "{{ busca }}".{% else %}Nenhuma cotação cadastrada.{% endif %}</p>
+            <a href="{{ url_for('carta.create') }}" class="btn btn-primary" style="margin-top: 1rem;">Cadastrar Primeira Cotação</a>
+        </div>
+    {% endif %}
+</main>
+{% endblock %}
